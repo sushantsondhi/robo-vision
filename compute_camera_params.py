@@ -1,8 +1,37 @@
-"""Compute the Camera Matrix(M) from given image."""
+"""Compute the Camera Parameters(A, R, T) from given image."""
 import sys
 import pickle
 import numpy as np
+import math
+from typing import Tuple
 from marker import List_5_tuple
+
+def get_camera_params_from_m(M: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    A = np.empty((3, 3))
+    R = np.empty((3, 3))
+    T = np.empty((3, 1))
+
+    T[2,0] = M[2,3]
+    R[2,:] = M[2,:3]
+
+    m1, m2, m3 = M[0,:3], M[1,:3], M[2,:3]
+    A[0,2] = np.dot(m1, m3)
+    A[1,2] = np.dot(m2, m3)
+
+    A[1,1] = math.sqrt(np.dot(m2, m2)-A[1,2]*A[1,2])
+
+    R[0,:] = np.cross(m2, m3)/A[1,1]
+    R[1,:] = (m2 - A[1,2]*R[2,:])/A[1,1]
+
+    A[0,0] = np.dot(m1, R[0,:])
+    A[0,1] = np.dot(m1, R[1,:])
+
+    T[1,0] = (M[1,3] - A[1,2]*T[2,0])/A[1,1]
+    T[0,0] = (M[0,3] - A[0,2]*T[2,0] - A[0,1]*T[1,0])/A[0,0]
+
+    A[1,0], A[2,0], A[2,1], A[2,2] = 0, 0, 0, 1
+
+    return A, R, T
 
 
 def get_m(data_set: list) -> np.ndarray:
