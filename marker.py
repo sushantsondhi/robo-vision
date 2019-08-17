@@ -84,9 +84,9 @@ class Marker:
 
 
 if __name__ == "__main__":
-  img = cv2.imread("./left1.16mm.jpg")
-  r_list = Marker().manual_face_detector(img, "left1.16mm.pkl");
-  with open("left1.16mm.pkl", 'rb') as f:
+  # img = cv2.imread("./left2.16mm.jpg")
+  # r_list = Marker().manual_face_detector(img, "left2.16mm.pkl");
+  with open("left2.16mm.pkl", 'rb') as f:
       mynewlist = pickle.load(f)
   print(mynewlist.vertex_list)
   print(len(mynewlist.vertex_list))
