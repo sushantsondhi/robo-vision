@@ -36,4 +36,3 @@ if __name__ == "__main__":
   img = cv2.imread("../Input/Calibration/left1.16mm.jpg")
   r_list = manual_face_detector(img);
   print(r_list)
-
