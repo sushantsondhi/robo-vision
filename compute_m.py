@@ -2,6 +2,7 @@
 import sys
 import pickle
 import numpy as np
+from marker import List_5_tuple
 
 
 def get_m(data_set: list) -> np.ndarray:
@@ -20,12 +21,12 @@ def get_m(data_set: list) -> np.ndarray:
         x_or_y = -1.0 * elem[3 + id]
         co_efficients = []
         if (id == 0):
-            co_efficients.extend(point[0:3] + [1])
+            co_efficients.extend(point[0:3] + (1,))
             co_efficients.extend([0, 0, 0, 0])
             co_efficients.extend([point[0] * x_or_y, point[1] * x_or_y, point[2] * x_or_y])
         elif (id == 1):
             co_efficients.extend([0, 0, 0, 0])
-            co_efficients.extend(point[0:3] + [1])
+            co_efficients.extend(point[0:3] + (1,))
             co_efficients.extend([point[0] * x_or_y, point[1] * x_or_y, point[2] * x_or_y])
         return co_efficients
 
@@ -41,14 +42,18 @@ def get_m(data_set: list) -> np.ndarray:
     # Compute the co-efficients of M using Moore-Penrose inverse
     m = np.matmul(np.linalg.pinv(C), p)
 
-    return m
+    #resize the matrix to 3x4
+    M = np.append(m, [1]).reshape((3,4))
+    scl = np.linalg.norm(M[2,:3])
+# to do normalise the last row of M
+    return M / scl
 
 
 if __name__ == "__main__":
-    data_file = sys.argv[1]
-    with open(data_file, "rb") as df:
-        data_obj = pickle.load(df)
+    with open("left2.16mm_1.pkl", 'rb') as f:
+        data_obj = pickle.load(f)
         data_set = data_obj.tuple_list
+        print(data_set)
 
     co_effs = get_m(data_set)
     print(co_effs)

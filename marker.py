@@ -147,11 +147,11 @@ def gen_data_set(
 #
 #   List_5_tuple().save_list(data_set, img, "left2.16mm_1.pkl")
 
-if __name__ == "__main__":
-  with open("left2.16mm_1.pkl", 'rb') as f:
-      mynewlist = pickle.load(f)
-
-  print(mynewlist.tuple_list)
-  print(len(mynewlist.tuple_list))
-  cv2.imshow("final_image", mynewlist.image_copy)
-  cv2.waitKey(0)
+# if __name__ == "__main__":
+#   with open("left1.16mm_1.pkl", 'rb') as f:
+#       mynewlist = pickle.load(f)
+#
+#   print(mynewlist.tuple_list)
+#   print(len(mynewlist.tuple_list))
+#   cv2.imshow("final_image", mynewlist.image_copy)
+#   cv2.waitKey(0)
