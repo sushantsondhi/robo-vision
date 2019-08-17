@@ -79,10 +79,14 @@ def get_m(data_set: list) -> np.ndarray:
 
 
 if __name__ == "__main__":
-    with open("left2.16mm_1.pkl", 'rb') as f:
+    with open("left1.16mm_1.pkl", 'rb') as f:
         data_obj = pickle.load(f)
         data_set = data_obj.tuple_list
         print(data_set)
 
     co_effs = get_m(data_set)
+    A, R, T = get_camera_params_from_m(co_effs)
     print(co_effs)
+    print(A)
+    print(R)
+    print(T)
