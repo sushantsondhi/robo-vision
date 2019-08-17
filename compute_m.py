@@ -1,43 +1,54 @@
-"""Compute the Camera Matrix(M) of a given camera."""
-import numpy as np
+"""Compute the Camera Matrix(M) from given image."""
+import sys
 import pickle
+import numpy as np
 
-def gen_data_set(
-    start: np.ndarray,
-    dim_x: float = 40.0,
-    dim_y: float = 40.0,
-    dist_x: float = 20.0,
-    dist_y: float = 20.0,
-    m: int = 5,
-    n: int = 5,
-) -> list:
-    """Documentation for generating data set.
 
-    function to generate a data set of 3D co-ordinates as defined by a 'start'
-    3-tuple, rectangles of size ('dim_x', 'dim_y') mxn in number spaced apart
-    by 'dist_x' and 'dist_y'.
+def get_m(data_set: list) -> np.ndarray:
+    """Documentation for a function.
+
+    Given a set of 3D to 2D point correspondences compute the camera matrix
+    using the Direct Linear Transform Method Cm = p.
     """
-    data_set = []
-    for r in range(m):
-        for c in range(n):
-            p1 = np.array(
-                [
-                    start[0] + c * (dim_x + dist_x),
-                    start[1] + r * (dim_y + dist_y),
-                    start[2],
-                ]
-            )
-            p2 = p1 + np.array([dist_x, 0.0, 0.0])
-            p3 = p1 + np.array([dist_x, dist_y, 0.0])
-            p4 = p1 + np.array([0.0, dist_y, 0.0])
-            data_set.extend([p1, p2, p3, p4])
 
-    return data_set
+    def gen_row(point: tuple, id: int) -> list:
+        """Documentation for a function.
+
+        Given a 5-tuple (X, Y, Z, x, y) return the co-efficients of the linear
+        system used to solve M. 'id' determines the row returned.
+        """
+        x_or_y = -1.0 * elem[3 + id]
+        co_efficients = []
+        if (id == 0):
+            co_efficients.extend(point[0:3] + [1])
+            co_efficients.extend([0, 0, 0, 0])
+            co_efficients.extend([point[0] * x_or_y, point[1] * x_or_y, point[2] * x_or_y])
+        elif (id == 1):
+            co_efficients.extend([0, 0, 0, 0])
+            co_efficients.extend(point[0:3] + [1])
+            co_efficients.extend([point[0] * x_or_y, point[1] * x_or_y, point[2] * x_or_y])
+        return co_efficients
+
+    # Build the co-efficient and constant matrix from the data set
+    data_size = len(data_set) * 2
+    p = np.zeros(data_size)
+    C = np.zeros((data_size, 11))
+    for id, elem in enumerate(data_set):
+        C[2 * id] = gen_row(elem, 0)
+        C[2 * id + 1] = gen_row(elem, 1)
+        p[2 * id] = elem[3]
+        p[2 * id + 1] = elem[4]
+    # Compute the co-efficients of M using Moore-Penrose inverse
+    m = np.matmul(np.linalg.pinv(C), p)
+
+    return m
 
 
 if __name__ == "__main__":
-    start = np.array([500, 0, 0]).astype(np.float64)
-    data_set = gen_data_set(start)
-    print("Length of set:", len(data_set))
-    for id, elem in enumerate(data_set):
-        print("Element {}: ({}, {}, {})".format(id, elem[0], elem[1], elem[2]))
+    data_file = sys.argv[1]
+    with open(data_file, "rb") as df:
+        data_obj = pickle.load(df)
+        data_set = data_obj.tuple_list
+
+    co_effs = get_m(data_set)
+    print(co_effs)
