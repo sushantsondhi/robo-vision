@@ -71,8 +71,8 @@ class tuple_2D_points:
 #   # print(r_list)
 
 
-tuple_2D_points().merge("left.pkl","right.pkl","part1.pkl")
-with open("part1.pkl", 'rb') as f:
-  mynewlist = pickle.load(f)
-print(mynewlist.final_list)
-print(len(mynewlist.final_list))
+# tuple_2D_points().merge("left.pkl","right.pkl","part1.pkl")
+# with open("part1.pkl", 'rb') as f:
+#   mynewlist = pickle.load(f)
+# print(mynewlist.final_list)
+# print(len(mynewlist.final_list))
