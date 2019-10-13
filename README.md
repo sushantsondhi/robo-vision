@@ -7,6 +7,7 @@ The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/a
 ### Part1: Using a Calibrated Stereo Camera System
 
 1. **Given:** The camera calibration matrix parameters (i.e. M = A[R|T] & M' = A'[R'|T'])
+   
    **Task1:** Find Fundamental Matrix
    **Procedure:**
     - Mark corresponding points in two images and get their coordinates (Get 5  such points)
@@ -14,7 +15,7 @@ The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/a
     - F = (A'<sup>-1</sup>)<sup>T</sup>EA<sup>-1</sup> (where E = cross(T,R)) gives fundamental matrix using calibration parameters
   	
    **Task2:** Draw Epipolar Line
-  	**Procedure:**
+   **Procedure:**
     - Find the equation of the line joining optical centre of left camera (C<sub>l</sub>) and any point in the left image
     - Find the image of the line in the right camera using M'
     - This gives the epipolar line for the chosen point
