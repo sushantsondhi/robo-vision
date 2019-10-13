@@ -1,4 +1,4 @@
-Robotics Technology Course (JRL302) Assignment#1 on Robotics Vision
+Robotics Technology Course (JRL302) Assignment on Robotics Vision
 
 # Camera Calibration and Structure Computation
 The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/assignment_3.html
