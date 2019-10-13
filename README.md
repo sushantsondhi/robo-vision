@@ -1,8 +1,9 @@
 Robotics Technology Course (JRL302) Assignment#1 on Robotics Vision
 
 ## Camera Calibration and Structure Computation
-----------------------------------------------
 The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/assignment_3.html
+
+--------------------------
 
 ### Part1: Using a Calibrated Stereo Camera System
 
@@ -36,7 +37,7 @@ The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/a
     - Use the wireframe model to get Top and Front views
 
 ### Part2: Calibrating Cameras
---------------------------
+
 1. **Given:** Two images and their 2D and 3D coordinates of important points
 
     **Task1:** Calculate M = A[R|T] & M' = A[R|T']
