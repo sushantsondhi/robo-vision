@@ -1,6 +1,6 @@
 Robotics Technology Course (JRL302) Assignment#1 on Robotics Vision
 
-## Camera Calibration and Structure Computation
+# Camera Calibration and Structure Computation
 The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/assignment_3.html
 
 --------------------------
@@ -26,7 +26,7 @@ The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/a
 
 2. **Given:** Part1.1
 
-    **Task1:** Make a wireframe model of two objects on a black background
+    **Task:** Make a wireframe model of two objects on a black background
 
     **Procedure:**
     - Take a point in the left image and corresponding point in the right image
@@ -40,7 +40,7 @@ The assignment can be found at: http://www.cse.iitd.ac.in/~sumantra/courses/cv/a
 
 1. **Given:** Two images and their 2D and 3D coordinates of important points
 
-    **Task1:** Calculate M = A[R|T] & M' = A[R|T']
+    **Task:** Calculate M = A[R|T] & M' = A[R|T']
 
     **Procedure:**
     - Find corresponding 2D image coordinates of given 100 3D points
